@@ -137,7 +137,7 @@ function BuildTarget(index, itemName) {
 BuildTarget.prototype = {
     constructor: BuildTarget,
     setRateLabel: function() {
-        this.rateLabel.textContent = " Items/" + longRateNames[rateName] + ": "
+        this.rateLabel.textContent = trans(" Items/") + longRateNames[rateName] + ": "
     },
     displayRecipes: function() {
         while (this.recipeSelector.hasChildNodes()) {

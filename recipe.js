@@ -119,7 +119,7 @@ Recipe.prototype = {
             return t
         }
         if (this.products.length > 1 || this.products[0].item.name !== this.name) {
-            t.appendChild(new Text("Products: "))
+            t.appendChild(new Text(trans("Products: ")))
             for (var i = 0; i < this.products.length; i++) {
                 var ing = this.products[i]
                 var p = document.createElement("div")

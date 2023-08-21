@@ -69,7 +69,7 @@ Module.prototype = {
                 first = true
             }
             b = document.createElement("b")
-            b.textContent = "Energy consumption: "
+            b.textContent = trans("Energy consumption: ")
             t.appendChild(b)
             var sign = ""
             if (!this.power.less(zero)) {
@@ -85,7 +85,7 @@ Module.prototype = {
                 first = true
             }
             b = document.createElement("b")
-            b.textContent = "Speed: "
+            b.textContent = trans("Speed: ")
             t.appendChild(b)
             var sign = ""
             if (!this.speed.less(zero)) {
@@ -101,7 +101,7 @@ Module.prototype = {
                 first = true
             }
             b = document.createElement("b")
-            b.textContent = "Productivity: "
+            b.textContent = trans("Productivity: ")
             t.appendChild(b)
             var sign = ""
             if (!this.productivity.less(zero)) {

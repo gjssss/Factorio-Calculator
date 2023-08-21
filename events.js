@@ -47,7 +47,7 @@ function searchTargets() {
     // handle enter key press (select target if only one is visible)
     if (ev.keyCode === 13) {
         let labels = dropdown.selectAll("label")
-            .filter(function() {
+            .filter(function () {
                 return this.style.display !== "none"
             })
         // don't do anything if more than one icon is visible
@@ -62,7 +62,7 @@ function searchTargets() {
     // hide non-matching labels & icons
     let currentHrHasContent = false
     let lastHrWithContent = null
-    dropdown.selectAll("hr, label").each(function(item) {
+    dropdown.selectAll("hr, label").each(function (item) {
         if (this.tagName === "HR") {
             if (currentHrHasContent) {
                 this.style.display = ""
@@ -88,7 +88,7 @@ function searchTargets() {
 
 // Triggered when a build target's item is changed.
 function ItemHandler(target) {
-    return function(item) {
+    return function (item) {
         target.itemName = item.name
         target.recipeIndex = 0
         target.displayRecipes()
@@ -104,9 +104,9 @@ function RecipeSelectorHandler(target, i) {
 
 // The "x" button to remove a target.
 function RemoveHandler(target) {
-    this.handleEvent = function(event) {
+    this.handleEvent = function (event) {
         build_targets.splice(target.index, 1)
-        for (var i=target.index; i < build_targets.length; i++) {
+        for (var i = target.index; i < build_targets.length; i++) {
             build_targets[i].index--
         }
         target.element.remove()
@@ -116,7 +116,7 @@ function RemoveHandler(target) {
 
 // Triggered when a "Factories:" text box is changed.
 function FactoryHandler(target) {
-    this.handleEvent = function(event) {
+    this.handleEvent = function (event) {
         target.factoriesChanged()
         itemUpdate()
     }
@@ -124,7 +124,7 @@ function FactoryHandler(target) {
 
 // Triggered when a "Rate:" text box is changed.
 function RateHandler(target) {
-    this.handleEvent = function(event) {
+    this.handleEvent = function (event) {
         target.rateChanged()
         itemUpdate()
     }
@@ -134,6 +134,22 @@ function RateHandler(target) {
 
 // Obtains current data set from UI element, and resets the world with the new
 // data.
+function changeLang() {
+    userLanguage = currentLang()
+    let url = location.origin + location.pathname + '?' +
+        location.search
+            .substring(1)
+            .split('&')
+            .map(item => {
+                if (item.split('=')[0] === 'lang') {
+                    return 'lang=' + userLanguage
+                } else {
+                    return item
+                }
+            }).join('&')
+    location.replace(url)
+}
+
 function changeMod() {
     var modName = currentMod()
 
@@ -291,7 +307,7 @@ function changeTooltip(event) {
 // recipe row events
 
 function IgnoreHandler(row) {
-    this.handleEvent = function(event) {
+    this.handleEvent = function (event) {
         if (spec.ignore[row.name]) {
             delete spec.ignore[row.name]
             row.setIgnore(false)
@@ -305,7 +321,7 @@ function IgnoreHandler(row) {
 
 // Triggered when a factory module is changed.
 function ModuleHandler(row, index) {
-    return function(module) {
+    return function (module) {
         if (spec.setModule(row.recipe, index, module) || isFactoryTarget(row.recipe.name)) {
             itemUpdate()
         } else {
@@ -316,7 +332,7 @@ function ModuleHandler(row, index) {
 
 // Triggered when the right-arrow "copy module" button is pressed.
 function ModuleCopyHandler(row) {
-    this.handleEvent = function(event) {
+    this.handleEvent = function (event) {
         var moduleCount = spec.moduleCount(row.recipe)
         var module = spec.getModule(row.recipe, 0)
         var needRecalc = false
@@ -340,7 +356,7 @@ function getFactory(recipeName) {
 
 // Triggered when a beacon module is changed.
 function BeaconHandler(recipeName) {
-    return function(module) {
+    return function (module) {
         var factory = getFactory(recipeName)
         factory.beaconModule = module
         if (isFactoryTarget(recipeName) && !factory.beaconCount.isZero()) {
@@ -353,7 +369,7 @@ function BeaconHandler(recipeName) {
 
 // Triggered when a beacon module count is changed.
 function BeaconCountHandler(recipeName) {
-    this.handleEvent = function(event) {
+    this.handleEvent = function (event) {
         var moduleCount = RationalFromString(event.target.value)
         var factory = getFactory(recipeName)
         factory.beaconCount = moduleCount
@@ -367,7 +383,7 @@ function BeaconCountHandler(recipeName) {
 
 // Triggered when the up/down arrow "copy to all recipes" button is pressed.
 function CopyAllHandler(name) {
-    this.handleEvent = function(event) {
+    this.handleEvent = function (event) {
         var factory = spec.spec[name]
         var needRecalc = false
         for (var recipeName in spec.spec) {
@@ -393,7 +409,7 @@ function CopyAllHandler(name) {
 // breakdown events
 
 function ToggleBreakdownHandler(itemRow, breakdown) {
-    this.handleEvent = function(event) {
+    this.handleEvent = function (event) {
         if (itemRow.arrowCell.classList.contains("breakdown-open")) {
             itemRow.arrowCell.classList.remove("breakdown-open")
             breakdown.row.classList.remove("breakdown-open")
@@ -407,13 +423,13 @@ function ToggleBreakdownHandler(itemRow, breakdown) {
 // items tab events
 
 function PipeCountHandler(config) {
-    this.handleEvent = function(event) {
+    this.handleEvent = function (event) {
         config.setPipes(event.target.value)
     }
 }
 
 function PipeLengthHandler(config) {
-    this.handleEvent = function(event) {
+    this.handleEvent = function (event) {
         config.setLength(event.target.value)
     }
 }
@@ -464,12 +480,12 @@ var tabMap = {
 function clickTab(tabName) {
     currentTab = tabName
     var tabs = document.getElementsByClassName("tab")
-    for (var i=0; i < tabs.length; i++) {
+    for (var i = 0; i < tabs.length; i++) {
         tabs[i].style.display = "none"
     }
 
     var buttons = document.getElementsByClassName("tab_button")
-    for (var i=0; i < buttons.length; i++) {
+    for (var i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove("active")
     }
 

@@ -15,7 +15,7 @@ limitations under the License.*/
 
 function formatName(name) {
     name = name.replace(new RegExp("-", 'g'), " ")
-    return name[0].toUpperCase() + name.slice(1)
+    return t(name[0].toUpperCase() + name.slice(1))
 }
 
 function displayRate(x) {
@@ -182,9 +182,9 @@ BeltIcon.prototype = {
         title.appendChild(new Text(formatName(this.name)))
         t.appendChild(title)
         var b = document.createElement("b")
-        b.textContent = "Max throughput: "
+        b.textContent = trans("Max throughput: ")
         t.appendChild(b)
-        t.appendChild(new Text(displayRate(this.speed) + " items/" + rateName))
+        t.appendChild(new Text(displayRate(this.speed) + trans(" items/") + rateName))
         return t
     }
 }
@@ -271,9 +271,9 @@ function ItemRow(row, item, canIgnore) {
     im.classList.add("display")
     if (canIgnore) {
         if (spec.ignore[item.name]) {
-            this.itemIcon.setText("(Click to unignore.)")
+            this.itemIcon.setText(trans("(Click to unignore.)"))
         } else {
-            this.itemIcon.setText("(Click to ignore.)")
+            this.itemIcon.setText(trans("(Click to ignore.)"))
         }
         im.classList.add("recipe-icon")
     }
@@ -301,9 +301,9 @@ ItemRow.prototype = {
     constructor: ItemRow,
     setIgnore: function(ignore) {
         if (ignore) {
-            this.itemIcon.setText("(Click to unignore.)")
+            this.itemIcon.setText(trans("(Click to unignore.)"))
         } else {
-            this.itemIcon.setText("(Click to ignore.)")
+            this.itemIcon.setText(trans("(Click to ignore.)"))
         }
     },
     setRate: function(itemRate, waste) {
@@ -320,7 +320,7 @@ function makePopOutCell() {
     popOutCell.classList.add("pad")
     var popOutLink = document.createElement("a")
     popOutLink.target = "_blank"
-    popOutLink.title = "Open this item in separate window."
+    popOutLink.title = t("Open this item in separate window.")
     popOutCell.appendChild(popOutLink)
     var popOutSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg")
     popOutSVG.classList.add("popout")
@@ -1037,14 +1037,14 @@ function RecipeTable(node) {
     this.node = node
     var headers = [
         Header(""),
-        Header("items/" + rateName, 2),
-        Header("belts", 2),
-        Header("surplus/" + rateName),
-        Header("factories", 2),
-        Header("modules", 1),
-        Header("beacons", 1),
+        Header(trans("items/") + rateName, 2),
+        Header(t("belts"), 2),
+        Header(t("surplus/") + rateName),
+        Header(t("factories"), 2),
+        Header(t("modules"), 1),
+        Header(t("beacons"), 1),
         Header(""),
-        Header("power", 2),
+        Header(t("power"), 2),
         Header("")
     ]
     var header = document.createElement("tr")
@@ -1075,7 +1075,7 @@ function RecipeTable(node) {
     totalLabelCell.colSpan = 11
     totalLabelCell.classList.add("right-align")
     var totalLabel = document.createElement("b")
-    totalLabel.textContent = "total power:"
+    totalLabel.textContent = trans("total power:")
     totalLabelCell.appendChild(totalLabel)
     this.totalRow.appendChild(totalLabelCell)
     var totalCell = document.createElement("td")
@@ -1091,8 +1091,8 @@ function RecipeTable(node) {
 RecipeTable.prototype = {
     constructor: RecipeTable,
     setRecipeHeader: function() {
-        this.recipeHeader.textContent = "items/" + rateName
-        this.wasteHeader.textContent = "surplus/" + rateName
+        this.recipeHeader.textContent = trans("items/") + rateName
+        this.wasteHeader.textContent = trans("surplus/") + rateName
     },
     updateDisplayedModules: function() {
         for (var i = 0; i < this.rowArray.length; i++) {

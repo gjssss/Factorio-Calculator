@@ -34,7 +34,7 @@ function getImage(obj, suppressTooltip, tooltipTarget) {
     if (tooltipsEnabled && obj.renderTooltip && !suppressTooltip) {
         addTooltip(im, obj, tooltipTarget)
     } else {
-        im.title = obj.name
+        im.title = t(obj.name)
     }
     im.alt = obj.name
     return im

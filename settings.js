@@ -13,6 +13,8 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 "use strict"
 
+var LANGUAGES = ['en', 'zh']
+
 // data set
 function Modification(name, filename, legacy, sheetSize) {
     this.name = name
@@ -65,6 +67,25 @@ function renderDataSetOptions(settings) {
         }
         modSelector.appendChild(option)
     }
+}
+
+function renderLangSetOptions() {
+    var modSelector = document.getElementById("lang_set")
+    LANGUAGES.forEach((l) => {
+        var option = document.createElement("option")
+        option.textContent = l
+        option.value = l
+        if (l === userLanguage) {
+            option.selected = true
+        }
+        modSelector.appendChild(option)
+    })
+}
+
+// Returns currently-selected data set.
+function currentLang() {
+    var elem = document.getElementById("lang_set")
+    return elem.value
 }
 
 // Returns currently-selected data set.
@@ -154,7 +175,7 @@ function renderRateOptions(settings) {
         node.appendChild(input)
         var label = document.createElement("label")
         label.htmlFor = name + "_rate"
-        label.textContent = "items/" + longRateNames[name]
+        label.textContent = trans("items/") + longRateNames[name]
         node.appendChild(label)
         node.appendChild(document.createElement("br"))
     }
@@ -276,6 +297,7 @@ function renderFuel(settings) {
     )
     labels.append(d => {
         let im = getImage(d, false, dropdown.node())
+        im.title = t(im.title)
         im.title += " (" + d.valueString() + ")"
         return im
     })
@@ -307,8 +329,8 @@ var DEFAULT_OIL = "default"
 
 var OIL_EXCLUSION = {
     "default": {},
-    "basic": {"advanced-oil-processing": true},
-    "coal": {"advanced-oil-processing": true, "basic-oil-processing": true}
+    "basic": { "advanced-oil-processing": true },
+    "coal": { "advanced-oil-processing": true, "basic-oil-processing": true }
 }
 
 var oilGroup = DEFAULT_OIL
@@ -360,9 +382,9 @@ function renderKovarex(settings) {
 function setKovarex(enabled) {
     kovarexEnabled = enabled
     if (enabled) {
-        solver.removeDisabledRecipes({"kovarex-enrichment-process": true})
+        solver.removeDisabledRecipes({ "kovarex-enrichment-process": true })
     } else {
-        solver.addDisabledRecipes({"kovarex-enrichment-process": true})
+        solver.addDisabledRecipes({ "kovarex-enrichment-process": true })
     }
 }
 

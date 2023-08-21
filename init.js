@@ -74,6 +74,7 @@ function reset() {
     var newTotals = document.createElement("table")
     newTotals.id = "totals"
     oldTotals.parentNode.replaceChild(newTotals, oldTotals)
+    applyLocalization()
 }
 
 function loadDataRunner(modName, callback) {
@@ -232,10 +233,12 @@ function init() {
         addOverrideOptions(OVERRIDE)
     }
     renderDataSetOptions(settings)
+    renderLangSetOptions()
     if ("tab" in settings) {
         currentTab = settings.tab + "_tab"
     }
     loadData(currentMod(), settings)
+    applyLocalization()
     // We don't need to call clickVisualize here, as we will properly render
     // the graph when we call itemUpdate() at the end of initialization.
     clickTab(currentTab)

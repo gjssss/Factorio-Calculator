@@ -49,23 +49,23 @@ FactoryDef.prototype = {
         var b
         if (this.max_ing) {
             b = document.createElement("b")
-            b.textContent = "Max ingredients: "
+            b.textContent = trans("Max ingredients: ")
             t.appendChild(b)
             t.appendChild(new Text(this.max_ing))
             t.appendChild(document.createElement("br"))
         }
         b = document.createElement("b")
-        b.textContent = "Energy consumption: "
+        b.textContent = trans("Energy consumption: ")
         t.appendChild(b)
         t.appendChild(new Text(alignPower(this.energyUsage, 0)))
         t.appendChild(document.createElement("br"))
         b = document.createElement("b")
-        b.textContent = "Crafting speed: "
+        b.textContent = trans("Crafting speed: ")
         t.appendChild(b)
         t.appendChild(new Text(this.speed.toDecimal()))
         t.appendChild(document.createElement("br"))
         b = document.createElement("b")
-        b.textContent = "Module slots: "
+        b.textContent = trans("Module slots: ")
         t.appendChild(b)
         t.appendChild(new Text(this.moduleSlots))
         return t
@@ -96,24 +96,24 @@ MinerDef.prototype.renderTooltip = function() {
     title.appendChild(new Text(formatName(this.name)))
     t.appendChild(title)
     var b = document.createElement("b")
-    b.textContent = "Energy consumption: "
+    b.textContent = trans("Energy consumption: ")
     t.appendChild(b)
     t.appendChild(new Text(alignPower(this.energyUsage, 0)))
     t.appendChild(document.createElement("br"))
     if (useLegacyCalculations) {
         b = document.createElement("b")
-        b.textContent = "Mining power: "
+        b.textContent = trans("Mining power: ")
         t.appendChild(b)
         t.appendChild(new Text(this.mining_power.toDecimal()))
         t.appendChild(document.createElement("br"))
     }
     b = document.createElement("b")
-    b.textContent = "Mining speed: "
+    b.textContent = trans("Mining speed: ")
     t.appendChild(b)
     t.appendChild(new Text(this.mining_speed.toDecimal()))
     t.appendChild(document.createElement("br"))
     b = document.createElement("b")
-    b.textContent = "Module slots: "
+    b.textContent = trans("Module slots: ")
     t.appendChild(b)
     t.appendChild(new Text(this.moduleSlots))
     return t
